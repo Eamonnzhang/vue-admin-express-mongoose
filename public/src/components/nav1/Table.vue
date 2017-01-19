@@ -143,23 +143,22 @@
                 }).then(() => {
                     _this.listLoading=true;
                     NProgress.start();
-                    // setTimeout(function(){
-                    //     for(var i=0;i<_this.tableData.length;i++){
-                    //         if(_this.tableData[i].id==row.id){
-                    //             _this.tableData.splice(i,1);
-
-                    //             _this.listLoading=false;
-                    //             NProgress.done();
-                    //             _this.$notify({
-                    //                 title: '成功',
-                    //                 message: '删除成功',
-                    //                 type: 'success'
-                    //             });
-
-                    //             break;
-                    //         }
-                    //     }
-                    // },1000);
+                    axios.delete(`/api/user/${row._id}`).then(function(res){
+                        if(res.data.success){
+                            _this.$message({
+                                message:'删除成功',
+                                type: 'success'
+                            });
+                            _this.listLoading=false;
+                            NProgress.done();
+                            _this.getUserList()
+                        }else{
+                            _this.$message({
+                                message:'删除失败',
+                                type: 'error'
+                            });
+                        }
+                    })
                 }).catch(() => {
 
                 });
@@ -191,10 +190,8 @@
                                 birth: _this.editForm.birth==''?'':util.formatDate.format(new Date(_this.editForm.birth),'yyyy-MM-dd'),
                                 addr: _this.editForm.addr
                             }
-                            if(_this.editForm.id){
-                                userData.id = _this.editForm.id;
-                            }
-                            axios.post('/api/user',userData).then(function(res){
+                            let url = _this.editForm.id?'/api/user/${_this.editForm.id}':'/api/user'
+                            axios.post(url,userData).then(function(res){
                                 if(res.data.success){
                                     _this.$message({
                                         message:'提交成功',

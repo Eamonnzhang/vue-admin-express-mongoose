@@ -168,7 +168,7 @@
         }
 	}
 	.logout {
-		background: url(../assets/logout_36.png);
+		// background: url(../assets/logout_36.png);
 		background-size: contain;
 		width: 20px;
 		height: 20px;

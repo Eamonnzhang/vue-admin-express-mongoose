@@ -3,15 +3,30 @@ const User = mongoose.model('User');
 const { wrap: async } = require('co');
 const msg = require('../../utils/message')
 
-exports.create = async(function* (req,res){
-    let user;
-    if(req.body.id){
-        user = yield User.load(req.body.id);
-        user = Object.assign(user,req.body);
-    }else{
-        user = new User(req.body);
-    }
+exports.load = async(function* (req,res,next,id){
     try {
+        req.user = yield User.load(id)
+        if (!req.user) return next(new Error('Use not found'));
+    } catch (error) {
+        return next(err);
+    }
+    next()
+})
+
+exports.create = async(function* (req,res){
+    let  user = new User(req.body);
+    try {
+        yield user.updateAndSave();
+        res.send(msg.genSuccessMsg('保存成功'))
+    } catch (error) {
+        console.log(error);
+        res.send(msg.genFailedMsg('保存失败'))
+    }
+})
+exports.update = async(function*(req,res){
+    try {
+        let user = req.user;
+        user = Object.assign(user,req.body);
         yield user.updateAndSave();
         res.send(msg.genSuccessMsg('保存成功'))
     } catch (error) {
@@ -31,5 +46,15 @@ exports.list = async(function* (req,res){
     } catch (error){
         console.log(error);
         res.send(msg.genFailedMsg('保存失败'))
+    }
+})
+exports.delete = async(function* (req,res){
+    try {
+        let user = req.user;
+        yield user.remove()
+        res.send(msg.genSuccessMsg('删除成功',user))
+    } catch (error) {
+        console.log(error);
+        res.send(msg.genFailedMsg('删除失败'))
     }
 })
