@@ -1,6 +1,8 @@
 # Vue-Admin-Express-Mongoose
 基于Vue2.0(Vue-cli)+ElementUI+Express+Mongoose的全栈开发环境
 
+[OnlineDemo](http://admin.eamonn.cn/admin)
+
 前端页面部分基于[vueAdmin](https://github.com/taylorchen709/vueAdmin)项目，修复了其中的一些BUG。
 ## 用法
 ### 安装依赖
@@ -8,7 +10,7 @@
 npm install
 ```
 ### 开发环境
-首先，启动Express服务（3000端口），提供API接口，
+首先，启动Express服务（4501端口），提供API接口，
 请确保已经安装MongoDB
 ```
 npm run server
@@ -26,7 +28,7 @@ npm run dev
 需要注意的是，这里配置了`config/index.js`的
 ```javascript
 proxyTable:{
-    '/api' : 'http://localhost:3000'
+    '/api' : 'http://localhost:4501'
 }
 ```
 这样就需要约定，Express后台的所有API接口都要以`/api/*`来命名。
@@ -36,6 +38,6 @@ npm run build
 ```
 然后浏览器访问：
 ```
-http://localhost:3000/admin
+http://localhost:4501/admin
 ```
 
