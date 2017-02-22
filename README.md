@@ -1,9 +1,13 @@
 # Vue-Admin-Express-Mongoose
 基于Vue2.0(Vue-cli)+ElementUI+Express+Mongoose的全栈开发环境
 
-[OnlineDemo](http://admin.eamonn.cn/admin)
-
 前端页面部分基于[vueAdmin](https://github.com/taylorchen709/vueAdmin)项目，修复了其中的一些BUG。
+
+**[OnlineDemo](http://admin.eamonn.cn/admin)**
+
+## 效果
+![](http://ww1.sinaimg.cn/mw690/71d81503ly1fczk6lkcaoj21kw0rudii)
+
 ## 用法
 ### 安装依赖
 ```
